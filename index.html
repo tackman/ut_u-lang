@@ -12,10 +12,12 @@ function require( uri ) {
 }
 
 require('./ut_u_.js');
+var _out = '';
 function btn_onclick(){
   set_stdout(function(s){
+    _out += s + '<br />';
     var result = document.getElementById('out');
-    result.innerHTML = s;
+    result.innerHTML = _out;
   });
   tokenize(document.fm.in.value);
   run();

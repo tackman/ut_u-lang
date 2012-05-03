@@ -174,10 +174,11 @@ function set_stdout(cb){
 }
 
 // entry point
-// stdout = function(s){
-//     console.log(s);
-// }
-// var _div = tokenize('あうー うっうー かもー ハイ、ターッチ  うっうー かなーって');
+/*
+ stdout = function(s){
+     console.log(s);
+ }
+ var _div = tokenize('うっうー うっうー イエイ かもー おとく ハイ、ターッチ イエイ うっうー かなーって');
 run();
 
-
+*/
