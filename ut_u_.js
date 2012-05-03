@@ -2,13 +2,43 @@
 
 var g_input;
 var g_itr;
-var g_tokens = [];
+var g_tokens;
 var g_tk_state = 'start';
 
 var stdout;
 
 
 function tokenize(str){
+    g_tokens = [];
+    for(var i = 0; i < str.length; ++i){
+	if('あうー' === str.substring(i, i+3)){
+	    g_tokens.push('あうー');
+	    i += 2;
+	}else if('うっうー' === str.substring(i, i+4)){
+	    g_tokens.push('うっうー');
+	    i += 3;
+	}else if('ううー' === str.substring(i, i+3)){
+	    g_tokens.push('ううー');
+	    i += 2;
+	}else if('イエイ' === str.substring(i, i+3)){
+	    g_tokens.push('イエイ');
+	    i += 2;
+	}else if('おとく' === str.substring(i, i+3)){
+	    g_tokens.push('おとく');
+	    i += 2;
+	}else if('ハイ、ターッチ' === str.substring(i, i+7)){
+	    g_tokens.push('ハイ、ターッチ');
+	    i += 6;
+	}else if('かもー' === str.substring(i, i+3)){
+	    g_tokens.push('かもー');
+	    i += 2;
+	}else if('かなーって' === str.substring(i, i+5)){
+	    g_tokens.push('かなーって');
+	    i += 4;
+	}
+    }
+    
+/*
     var sp = str.split(' ');
     for( i in sp ){
 	var t = sp[i];
@@ -22,38 +52,11 @@ function tokenize(str){
 	  t === 'かなーって')
 	    g_tokens.push(t);
     }
+*/
     return g_tokens;
 };
 
-function tk_base(){
-    var c = getc();
-    if(c === 'あ')
-	tk_a();
-}
 
-function tk_a(){
-    var next1 = getc();
-    if(next1 !== 'う'){
-	g_tk_state = 'start';
-	--g_itr;
-	return;
-    }
-    var next2 = getc();
-    if(next2 === 'ー'){
-    }else if(next2 === 'っ'){
-	
-    }
-}
-
-function getc(){
-    var ret = g_itr < g_input.length ? g_input[g_itr] : null;
-    g_itr++;
-    return ret;
-}
-
-function output(arg){
-    console.log(arg);
-};
 
 // interpreter area
 var g_ptr;
@@ -72,8 +75,10 @@ function run(){
 	    ;  // nop
 	}else if(token === 'イエイ'){
 	    g_ptr++;
+	    output('イエイ ' + g_ptr);
 	}else if(token === 'おとく'){
 	    g_ptr--;
+	    output('おとく ' + g_ptr)
 	}else if(token === 'うっうー'){
 	    for( i = g_ptr; ; ++i){
 		value = g_tokens[i];
@@ -94,7 +99,6 @@ function run(){
 	    stdout(g_tokens[g_ptr]);
 	}else if(token === 'かもー'){
 	    depth = 0;
-	    ++g_pc;
 	    if(g_tokens[g_ptr] === 'あうー'){
 		for(; ; ++g_pc){
 		    if(g_tokens[g_pc] === 'かなーって' && depth === 0)
@@ -169,16 +173,25 @@ function half_dec( value){
 
 }
 
+function output(arg){
+//    console.log(arg);
+};
+
 function set_stdout(cb){
     stdout = cb;
 }
 
 // entry point
+
+
 /*
  stdout = function(s){
-     console.log(s);
+     console.log(g_ptr +' ' +s);
  }
- var _div = tokenize('うっうー うっうー イエイ かもー おとく ハイ、ターッチ イエイ うっうー かなーって');
+
+var _div = tokenize("ζ*'ヮ')ζ＜うっうー、うっうー！あうー  かもー イエイ ハイ、ターッチ！おとく うっうー かなーって ありがとうございましたー！");
+console.log(_div);
 run();
 
+gconsole.log('end');
 */
