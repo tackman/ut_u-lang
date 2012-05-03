@@ -5,6 +5,8 @@ var g_itr;
 var g_tokens = [];
 var g_tk_state = 'start';
 
+var stdout;
+
 
 function tokenize(str){
     var sp = str.split(' ');
@@ -124,12 +126,6 @@ function run(){
     }
 }
 
-function stdout(s){
-    // switches with env
-    // e.g. node.js or on-Browser script etc...
-    console.log(s);
-}
-
 function half_add( value){
     var ret;
     if(value === 'あうー')
@@ -173,9 +169,15 @@ function half_dec( value){
 
 }
 
-// entry point
+function set_stdout(cb){
+    stdout = cb;
+}
 
-var _div = tokenize('あうー うっうー かもー ハイ、ターッチ  うっうー かなーって');
+// entry point
+// stdout = function(s){
+//     console.log(s);
+// }
+// var _div = tokenize('あうー うっうー かもー ハイ、ターッチ  うっうー かなーって');
 run();
 
 
