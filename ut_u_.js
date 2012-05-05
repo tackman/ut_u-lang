@@ -1,9 +1,6 @@
 // tokenizer area
 
-var g_input;
-var g_itr;
 var g_tokens;
-var g_tk_state = 'start';
 
 var stdout;
 
@@ -38,21 +35,6 @@ function tokenize(str){
 	}
     }
     
-/*
-    var sp = str.split(' ');
-    for( i in sp ){
-	var t = sp[i];
-	if(t === 'あうー' ||
-	  t === 'うっうー' ||
-	  t === 'ううー' || 
-	  t === 'イエイ' ||
-	  t === 'おとく' ||
-	  t === 'ハイ、ターッチ' ||
-	  t === 'かもー' ||
-	  t === 'かなーって')
-	    g_tokens.push(t);
-    }
-*/
     return g_tokens;
 };
 
@@ -75,12 +57,14 @@ function run(){
 	    ;  // nop
 	}else if(token === 'イエイ'){
 	    g_ptr++;
-	    output('イエイ ' + g_ptr);
+	    if(g_ptr >= g_tokens.length)
+		throw 'すたっくぽいんたがはみでてます';
 	}else if(token === 'おとく'){
 	    g_ptr--;
-	    output('おとく ' + g_ptr)
+	    if(g_ptr < 0)
+		throw 'すたっくぽいんたがはみでてます';
 	}else if(token === 'うっうー'){
-	    for( i = g_ptr; ; ++i){
+	    for( i = g_ptr; i < g_tokens.length ; ++i){
 		value = g_tokens[i];
 		added = half_add(value);
 		g_tokens[i] = added;
@@ -88,7 +72,7 @@ function run(){
 		    break;
 	    }
 	}else if(token === 'ううー'){
-	    for(i = g_ptr; ; --i){
+	    for(i = g_ptr; i >= 0 ; --i){
 		value = g_tokens[i];
 		decced = half_dec(value);
 		g_tokens[i] = decced;
@@ -108,8 +92,11 @@ function run(){
 		    else if(g_tokens[g_pc] === 'かなーって')
 		        depth--;
 		}
+		if(g_pc >= g_tokens.length)
+		    throw 'るーぷのたいおうがとれていません';
 	    }
 	}else if(token === 'かなーって'){
+	    output('かなーってです');
 	    depth = 0;
 	    if(g_tokens[g_ptr] !== 'あうー'){
 		--g_pc;
@@ -121,6 +108,8 @@ function run(){
 		    else if(g_tokens[g_pc] === 'かもー')
 		        depth--;
 		}
+		if(g_pc < 0)
+		    throw 'るーぷのたいおうがとれていません';
 	    }else{
 
 	    }
@@ -173,6 +162,7 @@ function half_dec( value){
 
 }
 
+// デバッグ用
 function output(arg){
 //    console.log(arg);
 };
@@ -182,16 +172,36 @@ function set_stdout(cb){
 }
 
 // entry point
+// nodeでテストするときはこの辺を有効化
 
-
-/*
+/* 
  stdout = function(s){
      console.log(g_ptr +' ' +s);
  }
 
-var _div = tokenize("ζ*'ヮ')ζ＜うっうー、うっうー！あうー  かもー イエイ ハイ、ターッチ！おとく うっうー かなーって ありがとうございましたー！");
-console.log(_div);
-run();
+var _div = tokenize('うっうー かもー イエイ かなーって' +
 
-gconsole.log('end');
+'イエイ' +
+'うっうー イエイ' +
+'うっうー うっうー うっうー うっうー うっうー うっうー イエイ' +
+'うっうー うっうー うっうー イエイ' +
+'うっうー うっうー うっうー うっうー うっうー イエイ' +
+'うっうー うっうー うっうー うっうー イエイ' +
+'うっうー イエイ' +
+'うっうー うっうー  うっうー うっうー うっうー うっうー うっうー' +
+'おとく おとく おとく おとく おとく おとく おとく' +
+
+'あうー あうー あうー あうー あうー あうー あうー あうー'
+		    + '');
+
+try{
+    run();
+} catch (x) {
+    console.log(x);
+}
+
+//console.log(g_tokens);
+
+console.log('end');
 */
+
