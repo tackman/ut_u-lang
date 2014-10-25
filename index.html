@@ -1,6 +1,16 @@
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 <head>
+<meta charset="utf-8">
 <title>プログラミング言語「うっうー！」</title>
+<link href="./bootstrap.css" rel="stylesheet">
+<style>
+body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+    padding-bottom: 120px;
+      }
+</style>
+<link href="./bootstrap-responsive.css" rel="stylesheet">
 <script type="text/javascript">
 <!--
 function require( uri ) {
@@ -12,8 +22,8 @@ function require( uri ) {
 }
 
 require('./ut_u_.js');
-var _out = "ζ*'ヮ')ζ<";
 function btn_onclick(){
+  var _out = "";
   set_stdout(function(s){
     _out += s + ' ';
     var result = document.getElementById('out');
@@ -25,12 +35,139 @@ function btn_onclick(){
 //-->
 </script>
 </head>
+
 <body>
-<form name="fm" action="#">
-<textarea id="in" name="in" cols="80" rows="20" ></textarea>
-<input type="button" value="じっこう" onclick="btn_onclick()" />
-</form>
-<p id="out">
-ζ*'ヮ')ζ＜ここにけっかがでます</p>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">tackman.info</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+<!--
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+-->
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+<div class="container">
+
+  <h1>プログラミング言語 ζ*'ヮ')ζ＜うっうー！</h1>
+  <p>テキストボックスに「うっうー」のソースを放り込んで「じっこう」ボタンを押すと、実行結果が表示されます。サンプルソースと解説は下の方に。</p>
+
+  <form name="fm" action="#">
+  <div class="clearfix">
+    <div class="input">
+    <textarea class="span8" id="in" name="in" rows="20"></textarea> 
+    <input type="button" value="じっこう" onclick="btn_onclick()" />
+    </div>
+  </div>
+  </form>
+<pre id="out">
+ζ*'ヮ')ζ＜ここにけっかがでます</pre>
+
+<h2 style="margin-top:10%">ζ*'ヮ')ζ＜さんぷるそーす</h3>
+
+<div class="row">
+<div class="span6">
+<h4>
+Quine</h4>
+<pre>ハイ、ターッチ</pre>
+</div>
+
+<div class="span6">
+<h4>「うっうー」と7回表示</h4>
+<pre>あうー うっうー かもー イエイ ハイ、ターッチ おとく うっうー かなーって</pre>
+</div>
+
+<div class="span12">
+<h4>「うっうー」と7回表示するコードを実行時に生成してそのコードを実行</h4>
+<pre>
+うっうー！私はりきっちゃうかもー！
+イエイってなっちゃうかなーって。
+
+高槻やよいでーっす、イエイ！
+なんだか「ぷろぐらみんぐげんご」になっちゃうらしくて、うっうーってなっちゃいます！ イエイ！
+うっうーって私の口癖なんですけど、うっうーって言うとうっうーってなっちゃって、もううっうーうっうーうっうーイエイって感じです！
+モニタの前のみなさんも、うっうーって言ってうっうーってなっちゃいましょう！うっうー、イエイ！
+あのあの、うっうーって言うと「ぽいんたの指す値」がうっうーってなって、うっうーって感じで増えて、うっうーがうっうーでイエイになるらしいです。よく分かりません…
+とにかくうっうーって叫べば、どんどんうっうーってなって、もううっうーが止まらなくてうっうーイエイってなります！
+うっうーばっかりで苦しくなってきましたけど、イエイってがんばります！
+もう一息、うっうーうっうーうっうーうっうーうっうーうっうーうっうー！！！
+
+このページは、おとくです！えむ、あい、てぃーライセンスで配布するそうなのでおとく！お金がかからないのでおとく、再配布も出来ておとく、おとくでおとくなのですっごくおとくです！
+
+あうー、がんばって説明しましたけど、あうーって感じでよく分からないです、あうー… あうー、ボロが出ないうちに退散します、あうー…え、あうーってまだ言わなきゃですか？ あうー あうー。
+</pre>
+</div>
+
+</div>
+
+
+<h2 style="margin-top:20pt">ζ*'ヮ')ζ＜かいせつ</h2>
+<p>
+いわゆる<a href="http://ja.wikipedia.org/wiki/Brainfuck" target="_blank">Brainf*ck</a>系のプログラミング言語です。命令に「うっうー」「ううー」などの、やよいっぽい語彙を使います。基本はBrainf*ckなので、Brainf*ckを理解した上で下の解説を読んでください。
+</p>
+
+<div class="row">
+
+<div class="span6">
+<h5>命令一覧</h5>
+<ul>
+<li>あうー：値の0. nop</li>
+<li>うっうー：値の1. (*ptr)++ 全加算器なので桁上がりが前方に伝播する</li>
+<li>ううー：値の2. (*ptr)-- 全減算器なので桁下がりが後方に伝播する</li>
+<li>イエイ：値の3. ptr++</li>
+<li><おとく：値の4. ptr--/li>
+<li>ハイ、ターッチ：値の5. print((*ptr))</li>
+<li>かもー：値の6. ptr == あうー ならば対応する「かなーって」までジャンプ</li>
+<li>かなーって：値の7. *ptr != あうー ならば対応する「かもー」までジャンプ</li>
+</ul>
+</div>
+
+<div class="span6">
+<h5>字句解析</h5>
+ソース上では、上の命令一覧にマッチする文字列以外は無視されます。トークンの間を区切る必要はありません。
+<pre>うっうーうううっうーイエイζ*'ヮ')ζ＜かなってー　→　うっうー うっうー イエイ かなーって</pre>
+トークンと衝突しない限り、大喜利でも顔文字でも好きなように入れてください。
+</div>
+
+<div class="span6">
+<h5>データ型（もしくは扱える数字）</h5>
+「命令一覧」にある8種類が、そのまま数値の0〜7に対応します。「ハイ、ターッチ」で出力する際、数値は対応するあうー〜かなーってのトークンにデコードされます。
+</div>
+
+
+<div class="span6">
+<h5>データ領域とプログラム領域</h5>
+本家Brainf*ckではデータ領域とプログラム領域が分かれていますが、「うっうー」ではこの2つは同じメモリ上に存在します。
+つまり、うっうー/ううー等の命令を通じて、実行時にプログラム（兼データ）を書き換えて、そのコードを実行させることができます。
+3番目のサンプルでは、「あうー」で埋められている領域を、うっうーと7回表示するサンプルと同じコードに置き換えています。
+</div>
+
+</div> <!-- row -->
+
+
+<h2 style="margin-top:20pt">ζ*'ヮ')ζ＜りんく</h2>
+<p>
+<a href="https://github.com/tackman/ut_u-lang" target="_blank">Github上のソースコード</a>
+</p>
+<p>
+<a href="https://twitter.com/#!/tackman" target="_blank">作者 @tackman</a>
+</p>
+
+
+</div> <!-- /container -->
+
 </body>
 </html>
